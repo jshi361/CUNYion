@@ -62,5 +62,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-node_module
+node_modules
 config
