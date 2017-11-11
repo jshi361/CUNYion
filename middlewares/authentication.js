@@ -1,0 +1,58 @@
+const bcrypt = require('bcrypt-nodejs');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+const Users = require('../models').User;
+const post_auth = require('post_auth');
+
+function passwordsMatch(passwordSubmitted, storedPassword) {
+  return bcrypt.compareSync(passwordSubmitted, storedPassword);
+}
+
+passport.use('user', new LocalStrategy({
+    usernameField: 'email',
+  },
+  (email, password, done) => {
+    Users.findOne({
+      where: {
+        email: email
+      },
+    }).then((user) => {
+      debugger;
+
+      if(!user) {
+        return done(null, false, { message: 'Invalid Login' });
+      }
+
+      if (passwordsMatch(password, user.password) === false) {
+        console.log('\n\nerror match\n\n')
+        return done(null, false, { message: 'Invalid Login' });
+      }
+
+      console.log('\n\ncorrect login!!\n\n')
+      return done(null, user, { message: 'Successfully Logged In!' });
+    });
+  })
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  Users.findById(id).then((user) => {
+    if (!user) {
+      return done(null, false);
+    }
+
+    return done(null, user);
+  });
+});
+
+passport.redirectIfLoggedIn = (route) =>
+  (req, res, next) => (req.user ? res.redirect(route) : next());
+
+passport.redirectIfNotLoggedIn = (route) =>
+  (req, res, next) => (req.user ? next() : res.redirect(route));
+
+module.exports = passport;
