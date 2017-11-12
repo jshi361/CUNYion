@@ -12,29 +12,21 @@
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
   <ul class="navigation">
     <li class="logo">
-      Forum
+      CUNYion
     </li>
     <a href="/">
       <li>
         Home
       </li>
-    </a><a href="library_list.php">
-      <li>
-        Library List
-      </li>
-    </a><a href="#" onClick="">
-      <li>
-        IRC Chat
-      </li>
     </a><a href="faq.php">
       <li>
         FAQ
       </li>
-    </a><a href="community">
+    </a><a href="/community">
       <li>
         Community
       </li>
-    </a><a href="posts">
+    </a><a href="/posts">
       <li>
         New Posts
       </li>
@@ -43,22 +35,12 @@
         group
       </li>
     </a>
-  </ul>
-  <ul class="userinfo">
-    <a href="login">
-      <li class="useraccount">
-        <img class="user-avatar" src="https://res.cloudinary.com/dmrhbjudf/image/upload/v1492364258/dummy-profile-pic-male1_yrp5gl.jpg" />Login<i aria-hidden="true" class="fa fa-chevron-down"></i>
-      </li>
-    </a>
-    {{!-- <li class="messages">
-      <i aria-hidden="true" class="fa fa-envelope"></i><span class="inboxlabel">21</span>
-    </li>
-    <li class="announcements">
-      <i aria-hidden="true" class="fa fa-bullhorn"></i><span class="noticeslabel">2</span>
-    </li>
-    <li class="search">
-      <input class="search" value="Search..." /><i aria-hidden="true" class="fa fa-search"></i>
-    </li> --}}
+     {{#if cur_user}}
+            <li id="logout"><a href="#">Logout</a></li>
+      {{ else }}
+    <li><a href="/login">Login</a></li>
+    <li><a href="/signup">Sign Up</a></li>
+    {{/if}}
   </ul>
 </nav>
 

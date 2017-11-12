@@ -2,46 +2,39 @@ const bcrypt = require('bcrypt-nodejs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const Users = require('../models').User;
-const post_auth = require('../middlewares/post_auth');
+const User = require('../models').User;
 
 function passwordsMatch(passwordSubmitted, storedPassword) {
   return bcrypt.compareSync(passwordSubmitted, storedPassword);
 }
 
-passport.use('user', new LocalStrategy({
-    usernameField: 'email',
-  },
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+},
   (email, password, done) => {
-    Users.findOne({
-      where: {
-        email: email
-      },
+    User.findOne({
+      where: { email },
     }).then((user) => {
-      debugger;
-
-      if(!user) {
-        return done(null, false, { message: 'Invalid Login' });
+      if (user) {
+        if (passwordsMatch(password, user.password) === false) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+      } else if (user == null) {
+        return done(null, false, { message: 'Incorrect email.' });
       }
 
-      if (passwordsMatch(password, user.password) === false) {
-        console.log('\n\nerror match\n\n')
-        return done(null, false, { message: 'Invalid Login' });
-      }
-
-      console.log('\n\ncorrect login!!\n\n')
       return done(null, user, { message: 'Successfully Logged In!' });
     });
   })
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.username);
 });
 
-passport.deserializeUser((id, done) => {
-  Users.findById(id).then((user) => {
-    if (!user) {
+passport.deserializeUser((username, done) => {
+  User.findById(username).then((user) => {
+    if (user == null) {
       return done(null, false);
     }
 
