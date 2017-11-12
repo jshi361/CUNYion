@@ -35,25 +35,7 @@ const client = new Client({
 
 router.get('/', function(req, res, next) {
   res.render('home', { title: 'Express' });
-  // pg.connect(connect,function(err,client,done){
-  //   if(err){
-  //     return console.error('error fetching client');
-  //   }
-  //   client.query('SELECT *From hats',function(err,result){
-  //     if(err){
-  //       return console.error('error running query',err);
-  //     }
-  //     // res.render('index',{hats:result.rows});
-  //     console.log(result.rows);
-  //     done();
-  //   });
-  // })
-// client.connect();
 
-// client.query('SELECT *From hats', (err, res) => {
-//   console.log(err, res.rows);
-//   client.end();
-// })
 });
 
 module.exports = router;

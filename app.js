@@ -1,5 +1,6 @@
 
 var express = require('express');
+const passport = require('./middlewares/authentication');
 const expressSession = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -42,6 +43,45 @@ app.use(controllers);
 
 app.use(express.static(path.join(__dirname,'public')));
 //Enable sessions & passport
+app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
+app.use(passport.initialize());
+app.use(passport.session());
+
+const controller = require('./controllers/');
+app.use(controller);
+
+app.get('/controllers',function(req,res){
+  var string = encodeURIComponent('something went wrong.');
+  res.render(index);
+})
+// const { Pool, Client } = require('pg')
+//
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: 'localhost',
+//   database: 'ftdb',
+//   password: 'password',
+//   port: 5432,
+// })
+//
+// pool.query('SELECT NOW()', (err, res) => {
+//   console.log(err, res)
+//   pool.end()
+// })
+//
+// const client = new Client({
+//   user: 'postgres',
+//   host: 'localhost',
+//   database: 'ftdb',
+//   password: 'password',
+//   port: 5432,
+// })
+// client.connect()
+//
+// client.query('SELECT * FROM ACCOUNT', (err, res) => {
+//   console.log(err, res)
+//   client.end()
+// })
 // app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
 // app.use(passport.initialize());
 // app.use(passport.session());
