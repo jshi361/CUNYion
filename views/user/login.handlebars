@@ -1,0 +1,46 @@
+<head>
+
+    <!-- Login -->
+    <link rel="stylesheet" href="/css/user-login.css">
+    
+    
+</head>
+
+
+<div class="overall">
+    <div class="divBody">
+        <div class="LoginWrapper">
+            <div class="LoginContainer">
+                <h1 class="login_title">Please Login</h1>
+
+                <!-- show any messages that come back with authentication -->
+                {{#if message}}
+                <div class="alert alert-danger">{{message}}</div>
+                {{/if}}
+
+
+                <form class="formBox" action="/login" method="post">
+                    <input class="inputField" type="text" placeholder="Username" name="username">
+                    <input class="inputField" type="password" placeholder="Password" name="password">
+                    <button class="inputField" type="submit" id="login-button">Login</button>
+                    <br>
+                    <a href="/signup"><button type="button" id="register-button">Register Now!</button></a>
+                </form>
+            </div>
+
+            <ul class="bg-bubbles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
+    </div>
+</div>

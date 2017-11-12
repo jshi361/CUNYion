@@ -2,17 +2,48 @@
 var express = require('express');
 const passport = require('./middlewares/authentication');
 const expressSession = require('express-session');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var handlebars = require("express-handlebars");
+
+
+//Load Views
+
+const models = require('./models');
+
+
 var app = express();
 app.set('port', process.env.PORT || 3000);
 
 //Encrypt URL
 app.disable('x-powered-by');
 
-//Load Views
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', handlebars({
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname,'views/layouts')
 
-const models = require('./models');
+}));
+app.set('view engine', 'handlebars');
 
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+var controllers = require('./controllers');
+app.use(controllers);
+
+app.use(express.static(path.join(__dirname,'public')));
 //Enable sessions & passport
+<<<<<<< HEAD
 app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -52,6 +83,12 @@ app.get('/controllers',function(req,res){
 //   console.log(err, res)
 //   client.end()
 // })
+=======
+// app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+>>>>>>> 211e6525347152f3ac0d68ae0164f4fcf6452b86
 
 
 /*
@@ -73,5 +110,7 @@ app.get('/', (request, response) => {
 
 models.sequelize.sync({force: false})
 .then(() => {
-  app.listen(3000);
+app.listen(app.get('port'), function() {
+    console.log("Forum is running!!!", app.get('port'));
+});
 });

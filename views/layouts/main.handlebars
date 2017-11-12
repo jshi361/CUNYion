@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/clean-blog.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/main.css">
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <ul class="navigation">
+    <li class="logo">
+      Forum
+    </li>
+    <a href="/">
+      <li>
+        Home
+      </li>
+    </a><a href="library_list.php">
+      <li>
+        Library List
+      </li>
+    </a><a href="#" onClick="">
+      <li>
+        IRC Chat
+      </li>
+    </a><a href="faq.php">
+      <li>
+        FAQ
+      </li>
+    </a><a href="community">
+      <li>
+        Community
+      </li>
+    </a><a href="posts">
+      <li>
+        New Posts
+      </li>
+    </a><a href="/group">
+      <li>
+        group
+      </li>
+    </a>
+  </ul>
+  <ul class="userinfo">
+    <a href="login">
+      <li class="useraccount">
+        <img class="user-avatar" src="https://res.cloudinary.com/dmrhbjudf/image/upload/v1492364258/dummy-profile-pic-male1_yrp5gl.jpg" />Login<i aria-hidden="true" class="fa fa-chevron-down"></i>
+      </li>
+    </a>
+    {{!-- <li class="messages">
+      <i aria-hidden="true" class="fa fa-envelope"></i><span class="inboxlabel">21</span>
+    </li>
+    <li class="announcements">
+      <i aria-hidden="true" class="fa fa-bullhorn"></i><span class="noticeslabel">2</span>
+    </li>
+    <li class="search">
+      <input class="search" value="Search..." /><i aria-hidden="true" class="fa fa-search"></i>
+    </li> --}}
+  </ul>
+</nav>
+
+ {{{ body }}}
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <p> &nbsp; 
+
+<h4><center>Copyright &copy; CUNYion Forum 2017</center></h4>
+</p>
+
+      </div>
+    </div>
+  </footer>
+        <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/vendor/jquery.appear/jquery.appear.min.js"></script>
+    <script src="/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="/vendor/jquery-cookie/jquery-cookie.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/common/common.min.js"></script>
+    <script src="/vendor/jquery.validation/jquery.validation.min.js"></script>
+    <script src="/vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+    <script src="/vendor/jquery.gmap/jquery.gmap.min.js"></script>
+    <script src="/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+    <script src="/vendor/isotope/jquery.isotope.min.js"></script>
+    <script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="/vendor/vide/vide.min.js"></script>
+   <script src={{script}}></script>
+    
+    <!-- user login js -->
+    <script src="/js/user-login.js"></script>
+
+    <!-- Registration page form -->
+    <script src="/js/registration-form.js"></script>
+</body>
+</html>

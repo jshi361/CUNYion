@@ -1,8 +1,9 @@
 const passport = require('../middlewares/authentication');
 const router = require('express').Router();
 
+
 router.get('/', (req, res) => {
-  res.render('login');
+  res.render('user/login');
 });
 
 router.post('/', (req, res) => {
