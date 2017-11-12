@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING(128)
     },
-    createdAt: {
-      allowNull: false,
+    created_at: {
       type: DataTypes.DATE,
     }
   }, {
+    timestamps: false,
     getterMethods: {
 
     }

@@ -1,5 +1,6 @@
 
 var express = require('express');
+const passport = require('./middlewares/authentication');
 const expressSession = require('express-session');
 var app = express();
 app.set('port', process.env.PORT || 3000);
@@ -7,14 +8,20 @@ app.set('port', process.env.PORT || 3000);
 //Encrypt URL
 app.disable('x-powered-by');
 
+
 //Load Views
+
+//Enable sessions & passport
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
+
 
 const models = require('./models');
 
-//Enable sessions & passport
-app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
-app.use(passport.initialize());
-app.use(passport.session());
+const controllers = require('./controllers');
+app.use(controllers);
+
 // const { Pool, Client } = require('pg')
 //
 // const pool = new Pool({
@@ -57,10 +64,6 @@ Express Middlewares, catch request before process to the get/post handlers
 //     request.chance = Math.random()
 // next()
 // })
-
-app.get('/', (request, response) => {
-    response.send('Hello from Express!')
-})
 
 models.sequelize.sync({force: false})
 .then(() => {

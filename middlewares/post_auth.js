@@ -1,26 +1,32 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+const Post = require('../models').post;
+
 passport.use('post', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: "user_id",
+    passwordField: "post_id"
   },
-  (email, password, done) => {
-    Users.findOne({
-      where: { email },
-    }).then((user) => {
-      debugger;
+  (user_id, post_id, done) => {
+    console.log("User " + user_id + " is trying to edit post " + post_id);
+    Post.findOne({
+      where: {
+        post_id: post_id,
+        user_id: user_id
+      },
+    }).then((perm) => {
+      // debugger;
 
-      if(!user) {
-        return done(null, false, { message: 'Invalid Login' });
+      if(!perm) {
+        return done(null, false, { message: 'You dont have permission to edit this post' });
       }
 
-      if (passwordsMatch(password, user.password) === false) {
-        console.log('\n\nerror match\n\n')
-        return done(null, false, { message: 'Invalid Login' });
-      }
-
-      console.log('\n\ncorrect login!!\n\n')
-      return done(null, user, { message: 'Successfully Logged In!' });
+      console.log('\n\nYou have the access to edit this post!!\n\n');
+      console.log(perm);
+      return done(null, perm, { message: 'Welcome!' });
     });
   })
 );
+
+
+module.export = passport;

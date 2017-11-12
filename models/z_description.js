@@ -17,11 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING
     },
-    createdAt: {
+    created_at: {
       allowNull: false,
       type: DataTypes.DATE
     }
   }, {
+    timestamps: false,
     getterMethods: {
 
     }

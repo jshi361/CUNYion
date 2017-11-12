@@ -3,25 +3,16 @@
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = (sequelize, DataTypes) => {
-  var Comment = sequelize.define('comment', {
-    comment_id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    post_id: {
+  var Privilege = sequelize.define('privilege', {
+    privilege_level: {
       allowNull: false,
       type: DataTypes.INTEGER
     },
     user_id: {
-      allowNull: false,
       type: DataTypes.INTEGER
     },
-    comment: {
-      type: DataTypes.STRING
-    },
     created_at: {
+      allowNull: false,
       type: DataTypes.DATE
     }
   }, {
@@ -31,5 +22,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  return Comment;
+  return Privilege;
 };

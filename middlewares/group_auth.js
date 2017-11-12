@@ -1,17 +1,21 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+const Group = require('../models').group;
+
 passport.use('group', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: "user_id",
+    passwordField: "group_id"
   },
-  (group_id, user_id, done) => {
-    Group.findAll({
+  (user_id, group_id, done) => {
+    console.log("User " + user_id + " is trying to access group " + group_id);
+    Group.findOne({
       where: {
         group_id: group_id,
         user_id: user_id
       },
     }).then((perm) => {
-      debugger;
+      // debugger;
 
       if(!perm) {
         return done(null, false, { message: 'You dont have permission to this group' });
@@ -23,3 +27,6 @@ passport.use('group', new LocalStrategy({
     });
   })
 );
+
+
+module.export = passport;

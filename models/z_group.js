@@ -6,8 +6,6 @@ module.exports = (sequelize, DataTypes) => {
   var Group = sequelize.define('group', {
     group_id: {
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
       type: DataTypes.INTEGER
     },
     user_id: {
@@ -18,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     }
   }, {
+    timestamps: false,
     getterMethods: {
 
     }

@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       type: DataTypes.INTEGER
     },
-    firstName: {
+    firstname: {
       type: DataTypes.STRING
     },
-    lastName: {
+    lastname: {
       type: DataTypes.STRING
     },
     email: {
@@ -26,15 +26,16 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING
     },
-    createdAt: {
-      allowNull: false,
+    created_at: {
       type: DataTypes.DATE,
+      defaultValue: sequelize.NOW
     },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.NOW
     }
   }, {
+    timestamps: false,
     getterMethods: {
       studentId() {
         return `${this.student_id}`;
