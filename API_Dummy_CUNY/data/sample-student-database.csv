@@ -1,0 +1,9 @@
+"RecordNumber","student_id","FirstName","LastName","student_email","college_name","course_number","class_description","department"
+"1","12345678","AB","C","abc@abc.com","queens college","123","StarterClass","AB"
+"2","23456789","BC","D","bcd@abc.com","baruch college","123","StarterClass","BC"
+"3","34567890","CD","E","cde@abc.com","city college","123","StarterClass","CD"
+"4","45678901","DE","F","def@abc.com","city tech university","123","StarterClass","DE"
+"5","56789012","EF","G","efg@abc.com","brooklyn college","123","StarterClass","EF"
+"6","67890123","FG","H","fgh@abc.com","bronx college","123","StarterClass","FG"
+"7","78901234","GH","I","ghi@abc.com","hunter college","123","StarterClass","GH"
+

@@ -1,0 +1,18 @@
+{
+  "name": "student-api",
+  "version": "1.0.0",
+  "description": "Simple API backend for Hackathon Project.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon -L app.js"
+  },
+  "author": "Wai Yan Phyo Hein",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "csv-parse": "^1.2.1",
+    "express": "^4.15.4",
+    "morgan": "^1.8.2",
+    "nodemon": "^1.11.0"
+  }
+}

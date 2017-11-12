@@ -1,5 +1,6 @@
 
 var express = require('express');
+const passport = require('./middlewares/authentication');
 const expressSession = require('express-session');
 var app = express();
 app.set('port', process.env.PORT || 3000);
@@ -15,6 +16,14 @@ const models = require('./models');
 app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
 app.use(passport.initialize());
 app.use(passport.session());
+
+const controller = require('./controllers/');
+app.use(controller);
+
+app.get('/controllers',function(req,res){
+  var string = encodeURIComponent('something went wrong.');
+  res.render(index);
+})
 // const { Pool, Client } = require('pg')
 //
 // const pool = new Pool({

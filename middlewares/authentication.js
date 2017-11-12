@@ -3,7 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const Users = require('../models').User;
-const post_auth = require('post_auth');
+const post_auth = require('../middlewares/post_auth');
 
 function passwordsMatch(passwordSubmitted, storedPassword) {
   return bcrypt.compareSync(passwordSubmitted, storedPassword);
