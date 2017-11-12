@@ -1,68 +1,40 @@
-
-var express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const exphbs = require('express-handlebars');
+const express = require('express');
 const expressSession = require('express-session');
-var app = express();
-app.set('port', process.env.PORT || 3000);
+const flash = require('connect-flash');
+const methodOverride = require('method-override');
+const models = require('./models/');
+const passport = require('./middlewares/authentication');
+const viewHelpers = require('./middlewares/viewHelpers');
 
-//Encrypt URL
-app.disable('x-powered-by');
-
-//Load Views
-
-const models = require('./models');
-
-//Enable sessions & passport
-app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
+const app = express();
+app.use(methodOverride('_method'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressSession(({ secret: 'keyboard cat', resave: false, saveUninitialized: true })));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-// const { Pool, Client } = require('pg')
-//
-// const pool = new Pool({
-//   user: 'postgres',
-//   host: 'localhost',
-//   database: 'ftdb',
-//   password: 'password',
-//   port: 5432,
-// })
-//
-// pool.query('SELECT NOW()', (err, res) => {
-//   console.log(err, res)
-//   pool.end()
-// })
-//
-// const client = new Client({
-//   user: 'postgres',
-//   host: 'localhost',
-//   database: 'ftdb',
-//   password: 'password',
-//   port: 5432,
-// })
-// client.connect()
-//
-// client.query('SELECT * FROM ACCOUNT', (err, res) => {
-//   console.log(err, res)
-//   client.end()
-// })
+app.use(express.static('./public'));
 
+app.engine('handlebars', exphbs({
+  layoutsDir: './views/layouts',
+  defaultLayout: 'main',
+}));
+app.set('view engine', 'handlebars');
+app.set('views', `${__dirname}/views/`);
 
-/*
-Express Middlewares, catch request before process to the get/post handlers
- */
-// app.use((request, response, next) => {
-//     console.log(request.headers)
-// next()
-// })
-//
-// app.use((request, response, next) => {
-//     request.chance = Math.random()
-// next()
-// })
+app.use(viewHelpers.register());
 
-app.get('/', (request, response) => {
-    response.send('Hello from Express!')
-})
+app.use(require('./controllers/'));
 
-models.sequelize.sync({force: false})
-.then(() => {
-  app.listen(3000);
+const PORT = process.env.PORT || 3000;
+
+models.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is up and running on port ${PORT}`);
+  });
 });
