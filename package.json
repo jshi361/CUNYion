@@ -1,40 +1,31 @@
 {
-  "name": "ctp-blog",
-  "version": "0.0.1",
-  "description": "A simple blog.",
+  "name": "fteam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon -L app.js",
-    "test": "mocha --recursive tests/"
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Donato & Edgardo",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "1.18.2",
-    "connect-flash": "0.1.1",
-    "cookie-parser": "1.4.3",
-    "express": "4.16.1",
-    "express-handlebars": "3.0.0",
-    "express-session": "1.15.6",
-    "method-override": "2.3.10",
-    "minimatch": "3.0.4",
-    "passport": "0.4.0",
-    "passport-local": "1.0.0",
-    "pg": "7.3.0",
-    "pg-hstore": "2.3.2",
-    "sequelize": "4.13.3",
-    "sequelize-cli": "3.0.0",
-    "speakingurl": "14.0.1"
-  },
-  "devDependencies": {
-    "chai": "3.5.0",
-    "eslint": "^4.8.0",
-    "eslint-config-airbnb": "^16.0.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0",
-    "jest": "^21.2.1",
-    "mocha": "3.0.2",
-    "nodemon": "1.12.1"
+    "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
+    "cookie-parser": "^1.4.0",
+    "debug": "~2.2.0",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "formidable": "^1.0.17",
+    "fs": "0.0.2",
+    "morgan": "~1.7.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.22.1",
+    "serve-favicon": "~2.3.0"
   }
 }

@@ -1,40 +1,73 @@
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const exphbs = require('express-handlebars');
-const express = require('express');
+
+var express = require('express');
 const expressSession = require('express-session');
-const flash = require('connect-flash');
-const methodOverride = require('method-override');
-const models = require('./models/');
-const passport = require('./middlewares/authentication');
-const viewHelpers = require('./middlewares/viewHelpers');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var handlebars = require("express-handlebars");
 
-const app = express();
-app.use(methodOverride('_method'));
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressSession(({ secret: 'keyboard cat', resave: false, saveUninitialized: true })));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.static('./public'));
 
-app.engine('handlebars', exphbs({
-  layoutsDir: './views/layouts',
+//Load Views
+
+const models = require('./models');
+
+
+var app = express();
+app.set('port', process.env.PORT || 3000);
+
+//Encrypt URL
+app.disable('x-powered-by');
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', handlebars({
   defaultLayout: 'main',
+  layoutsDir: path.join(__dirname,'views/layouts')
+
 }));
 app.set('view engine', 'handlebars');
-app.set('views', `${__dirname}/views/`);
 
-app.use(viewHelpers.register());
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(require('./controllers/'));
+var controllers = require('./controllers');
+app.use(controllers);
 
-const PORT = process.env.PORT || 3000;
+app.use(express.static(path.join(__dirname,'public')));
+//Enable sessions & passport
+// app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-models.sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is up and running on port ${PORT}`);
-  });
+
+
+/*
+Express Middlewares, catch request before process to the get/post handlers
+ */
+// app.use((request, response, next) => {
+//     console.log(request.headers)
+// next()
+// })
+//
+// app.use((request, response, next) => {
+//     request.chance = Math.random()
+// next()
+// })
+
+app.get('/', (request, response) => {
+    response.send('Hello from Express!')
+})
+
+models.sequelize.sync({force: false})
+.then(() => {
+app.listen(app.get('port'), function() {
+    console.log("Forum is running!!!", app.get('port'));
+});
 });
