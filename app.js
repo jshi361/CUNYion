@@ -43,7 +43,6 @@ app.use(controllers);
 
 app.use(express.static(path.join(__dirname,'public')));
 //Enable sessions & passport
-<<<<<<< HEAD
 app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -83,12 +82,10 @@ app.get('/controllers',function(req,res){
 //   console.log(err, res)
 //   client.end()
 // })
-=======
 // app.use(expressSession(({secret: 'SomeName',resave: false,saveUninitialized: true})));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
->>>>>>> 211e6525347152f3ac0d68ae0164f4fcf6452b86
 
 
 /*
